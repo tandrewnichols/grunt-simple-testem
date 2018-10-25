@@ -1,7 +1,7 @@
 {
   "name": "grunt-simple-testem",
   "description": "A grunt wrapper for testem",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "main": "tasks/testem.js",
   "scripts": {
     "test": "grunt",

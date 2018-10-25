@@ -14,7 +14,7 @@ module.exports = (grunt) => {
     const done = this.async();
     const options = Object.assign({}, this.options(defaults));
     const testem = new Testem;
-    mode = this.data.mode || mode || 'dev';
+    mode = mode || this.data.mode || 'dev';
 
     testem[ modes[mode] ](options, (code) => {
       done(typeof code === 'undefined' || code === 0);

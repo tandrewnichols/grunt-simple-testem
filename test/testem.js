@@ -78,6 +78,18 @@ describe('testem', () => {
     });
   });
 
+  context('mode is provided via command line AND the task configuration', () => {
+    thisArg.data = {
+      mode: 'ci'
+    };
+    grunt.registerMultiTask.callsArgOnWith(2, thisArg, 'server');
+    subject(grunt);
+
+    it('should use the passed in mode first', () => {
+      testem.startServer.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+    });
+  });
+
   context('mode is not provided', () => {
     thisArg.data = {};
     grunt.registerMultiTask.callsArgOn(2, thisArg);

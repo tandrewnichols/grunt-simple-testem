@@ -24,41 +24,42 @@ Alternatively, install [task-master](http://github.com/tandrewnichols/task-maste
 
 ### Overview
 
-In your project's Gruntfile, add a section named `testem` to the data object passed into `grunt.initConfig()`. This task is a [simple-cli](https://github.com/tandrewnichols/simple-cli) task, so it can be configured in accordance with the examples there. A simple example is:
+In your project's Gruntfile, add a section named `testem` to the data object passed into `grunt.initConfig()`. This is a thin wrapper around the testem API, so any of [the valid options](https://github.com/testem/testem/blob/master/lib/api.js#L22) for testem will work here. A simple example is:
 
 ```js
 grunt.initConfig({
+  testem: {
+    unit: {
+      options: {
+        src_files: ['lib/**/*.js'],
+        fail_on_zero_tests: true,
+        framework: 'jasmine',
+        launch_in_dev: ['PhantomJS', 'Chrome', 'Firefox'],
+        launch_in_ci: ['PhantomJS']
+      }
+    }
+  }
 });
-
-// grunt testem:cover will run
-// testem --cwd server --include lib/** --include routes/** --exclude *.test.*
-//   --reporter--reporter--reporter--reporter lcov --reporter text-summary
-//   --report-dir server/coverage --all grunt mocha:unit
-//
-// whereas grunt testem:report will run
-// testem report --reporter text-summary
 ```
 
-If you need to pass arguments to the process that runs your tests (`grunt mocha:unit` in the example above), you need to add them to `args` _after_ the command name (alternatively, you can add them in `rawArgs`). E.g.
+Testem has two different modes: `dev` and `ci` (errrrr . . . and also `server` . . . which is present here and works but I've never used it so I don't know what it does). If a particular task should have a default mode, you can pass that as "mode," but you can also override it from the command line by passing it as an argument to the task. E.g.
 
 ```js
 grunt.initConfig({
-  cover: {
-    cmd: false,
-    args: ['grunt', 'mocha:unit', '--require', 'should']
-  }
-});
-
-// or
-
-grunt.initConfig({
-  cover: {
-    cmd: false,
-    args: ['grunt', 'mocha:unit'],
-    rawArgs: ['--require', 'should']
+  testem: {
+    unit: {
+      mode: 'ci'
+      options: {
+        // . . . etc
+      }
+    }
   }
 });
 ```
+
+Here, running `grunt testem:unit` will launch testem in ci mode, but you can override that by running `grunt testem:unit:dev`.
+
+If no mode is provided in the configuration or via command line, it defaults to `dev`.
 
 ## Contributing
 

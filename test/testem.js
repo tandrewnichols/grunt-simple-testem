@@ -20,7 +20,7 @@ describe('testem', () => {
     startServer: sinon.stub()
   };
 
-  thisArg.options.returns({ foo: 'bar' });
+  thisArg.options.returnsArg(0);
 
   class Testem {
     constructor() {
@@ -39,7 +39,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should call testem.startDev', () => {
-      testem.startDev.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startDev.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
@@ -52,7 +52,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should call testem.startCI', () => {
-      testem.startCI.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startCI.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
@@ -64,7 +64,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should call testem.startServer', () => {
-      testem.startServer.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startServer.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
@@ -74,7 +74,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should call testem.startServer', () => {
-      testem.startServer.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startServer.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
@@ -86,7 +86,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should use the passed in mode first', () => {
-      testem.startServer.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startServer.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
@@ -96,7 +96,7 @@ describe('testem', () => {
     subject(grunt);
 
     it('should call testem.startDev', () => {
-      testem.startDev.should.have.been.calledWith({ foo: 'bar' }, sinon.match.func);
+      testem.startDev.should.have.been.calledWith({ reporter: 'dot' }, sinon.match.func);
     });
   });
 
